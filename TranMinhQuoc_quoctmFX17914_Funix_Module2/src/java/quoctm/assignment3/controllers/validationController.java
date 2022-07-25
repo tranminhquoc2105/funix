@@ -5,13 +5,18 @@
  */
 package quoctm.assignment3.controllers;
 
+import java.io.Console;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.regex.Pattern;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import quoctm.assignment3.registration.RegistrationError;
 
 /**
  *
@@ -19,6 +24,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "validationController", urlPatterns = {"/validationController"})
 public class validationController extends HttpServlet {
+
+    private final String COURSE_PAGE = "assignment3_CourseForm.jsp";
+    private final String DEFAULT_PAGE = "assignment3_CourseForm.html";
+    private final String SHOW_PAGE = "show.jsp";
+    private final String ERROR_PAGE = "assignment3_CourseForm.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,19 +40,53 @@ public class validationController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, NullPointerException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet validationController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet validationController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        PrintWriter out = response.getWriter();
+        String url = DEFAULT_PAGE;
+        String errFullName = "";
+        String errAge = "";
+        RegistrationError errors = new RegistrationError();
+        boolean foundErr = false;
+        Pattern charExpression = Pattern.compile("^[a-zA-Z ]+$");
+        try {
+            String txtFullname = request.getParameter("txtFullname");
+            String txtAge = request.getParameter("txtAge");
+//            HttpSession session = request.getSession(false);
+            if (txtFullname.isEmpty()) {
+//                errFullName = "Khoong duoc de trong fullname";
+//                session.setAttribute("errFullName", errFullName);
+//                url = ERROR_PAGE;
+//                return;
+                foundErr = true;
+                errors.setUserNameLengthErr("Not null");
+            }
+//            if (!charExpression.matcher(txtFullname).find()) {
+//                errFullName = "Không có số";
+//                session.setAttribute("errFullName", errFullName);
+//                url = ERROR_PAGE;
+//                return;
+//            }
+//            System.out.println("AGE: " + txtAge);
+//            if (charExpression.matcher(txtAge).find()) {
+//                errAge = "Khoong duoc de trong AGE";
+//                session.setAttribute("errAge", errAge);
+//                url = ERROR_PAGE;
+//                System.out.println("False");
+//                return;
+//            } else {
+//                System.out.println("true");
+//            }
+
+            if (foundErr) {
+                request.setAttribute("CREATEERRORS", errors);
+            }
+        } finally {
+//            response.sendRedirect(url);
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
+            out.close();
+//    request
         }
     }
 

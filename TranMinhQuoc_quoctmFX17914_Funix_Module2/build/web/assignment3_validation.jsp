@@ -18,7 +18,7 @@
             }
         %>
         <h1>Welcome, ${username}!!</h1>
-          <a href="assignment3_CourseForm.jsp">CouseForm Page</a>
-      
+        <a href="assignment3_CourseForm.html">CouseForm Page</a>
+
     </body>
 </html>

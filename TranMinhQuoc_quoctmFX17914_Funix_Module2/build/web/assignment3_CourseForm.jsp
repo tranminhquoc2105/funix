@@ -12,10 +12,21 @@
         <title>JSP Page</title>
     </head>
     <body>
-          <h2>RegistrationController</h2>
+        <h2>RegistrationController</h2>
+
+        <%
+            String errors = %> ${requestScope.CREATEERRORS};
+
+        %>
         <form action="validationController" method="POST">
             Fullname: <input type="text" name="txtFullname" value="" /> </br>
+            <font color="red">   if(errors != null){
+            ${errors.userNameLengthErr};
+            }</font> </br>
+
             Age: <input type="text" name="txtAge" value="" /></br>
+            <font color="red">${errAge}</font> </br>
+
             Country: <select name="ddlCountry">
                 <option>Vietnamese</option>
                 <option>American</option>
@@ -39,7 +50,11 @@
             <input type="checkbox" name="chk_language" value="english" /> English </input>
             <input type="checkbox" name="chk_language" value="french" /> French </input>
             </br>
+
+
+            <!--<font color="red">${errNull}</font>-->
             <input type="submit" value="OK" name="btnSubmit" />
+
 
 
         </form>
