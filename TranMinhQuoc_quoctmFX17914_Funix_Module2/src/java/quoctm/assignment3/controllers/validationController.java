@@ -46,46 +46,37 @@ public class validationController extends HttpServlet {
         String url = DEFAULT_PAGE;
         String errFullName = "";
         String errAge = "";
-        RegistrationError errors = new RegistrationError();
+        RegistrationError re = new RegistrationError();
         boolean foundErr = false;
         Pattern charExpression = Pattern.compile("^[a-zA-Z ]+$");
         try {
             String txtFullname = request.getParameter("txtFullname");
             String txtAge = request.getParameter("txtAge");
-//            HttpSession session = request.getSession(false);
+            HttpSession session = request.getSession(false);
             if (txtFullname.isEmpty()) {
-//                errFullName = "Khoong duoc de trong fullname";
-//                session.setAttribute("errFullName", errFullName);
-//                url = ERROR_PAGE;
-//                return;
-                foundErr = true;
-                errors.setUserNameLengthErr("Not null");
+                errFullName = "Khoong duoc de trong fullname";
+                session.setAttribute("errFullName", errFullName);
+                url = ERROR_PAGE;
+                return;
             }
-//            if (!charExpression.matcher(txtFullname).find()) {
-//                errFullName = "Không có số";
-//                session.setAttribute("errFullName", errFullName);
-//                url = ERROR_PAGE;
-//                return;
-//            }
+            if (!charExpression.matcher(txtFullname).find()) {
+                errFullName = "Không có số";
+                session.setAttribute("errFullName", errFullName);
+                url = ERROR_PAGE;
+                return;
+            }
 //            System.out.println("AGE: " + txtAge);
-//            if (charExpression.matcher(txtAge).find()) {
-//                errAge = "Khoong duoc de trong AGE";
-//                session.setAttribute("errAge", errAge);
-//                url = ERROR_PAGE;
-//                System.out.println("False");
-//                return;
-//            } else {
-//                System.out.println("true");
-//            }
-
-            if (foundErr) {
-                request.setAttribute("CREATEERRORS", errors);
+            if (charExpression.matcher(txtAge).find()) {
+                errAge = "Khoong duoc de trong AGE";
+                session.setAttribute("errAge", errAge);
+                url = ERROR_PAGE;
+                System.out.println("False");
+                return;
+            } else {
+                System.out.println("true");
             }
         } finally {
-//            response.sendRedirect(url);
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
-            out.close();
+            response.sendRedirect(url);
 //    request
         }
     }
