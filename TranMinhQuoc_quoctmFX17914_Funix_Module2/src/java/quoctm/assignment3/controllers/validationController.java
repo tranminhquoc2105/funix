@@ -43,40 +43,117 @@ public class validationController extends HttpServlet {
             throws ServletException, IOException, NullPointerException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String url = DEFAULT_PAGE;
-        String errFullName = "";
-        String errAge = "";
-        RegistrationError re = new RegistrationError();
+        String url = ERROR_PAGE;
+        String txtFullname = request.getParameter("txtFullname");
+        String txtAge = request.getParameter("txtAge");
+        String ddlCountry = request.getParameter("ddlCountry");
+        String[] soCourses = request.getParameterValues("soCourses");
+        String[] language = request.getParameterValues("chk_language");
+
+        RegistrationError errors = new RegistrationError();
         boolean foundErr = false;
         Pattern charExpression = Pattern.compile("^[a-zA-Z ]+$");
+        Pattern numberExpression = Pattern.compile("^[0-9]+$");
         try {
-            String txtFullname = request.getParameter("txtFullname");
-            String txtAge = request.getParameter("txtAge");
-            HttpSession session = request.getSession(false);
-            if (txtFullname.isEmpty()) {
-                errFullName = "Khoong duoc de trong fullname";
-                session.setAttribute("errFullName", errFullName);
-                url = ERROR_PAGE;
-                return;
+            if (txtFullname.trim().isEmpty()) {
+                foundErr = true;
+                errors.setUserNameNullErr("Username not null");
+            } else if (!charExpression.matcher(txtFullname).find()) {
+                foundErr = true;
+                errors.setUserNameCharErr("Not digit");
             }
-            if (!charExpression.matcher(txtFullname).find()) {
-                errFullName = "Không có số";
-                session.setAttribute("errFullName", errFullName);
-                url = ERROR_PAGE;
-                return;
-            }
-//            System.out.println("AGE: " + txtAge);
-            if (charExpression.matcher(txtAge).find()) {
-                errAge = "Khoong duoc de trong AGE";
-                session.setAttribute("errAge", errAge);
-                url = ERROR_PAGE;
-                System.out.println("False");
-                return;
+
+//            System.out.println("AGE: " + age);
+            if (txtAge != null) {
+                if (!txtAge.trim().isEmpty()) {
+                    int age = Integer.parseInt(txtAge);
+                    if (!numberExpression.matcher(txtAge).find()) {
+                        foundErr = true;
+                        errors.setAgeCharErr("Khongo chua chu so");
+                    } else {
+                        if (age < 18 || age > 40) {
+                            foundErr = true;
+                            errors.setAgeRangeErr("Age: must be more than 18, and less than 40.");
+                        }
+                    }
+                } else {
+                    foundErr = true;
+                    errors.setAgeNullErr("Age must not null");
+                }
             } else {
+                foundErr = true;
+                errors.setAgeNullErr("Age must not null");
+            }
+
+            if (soCourses == null) {
+                foundErr = true;
+                errors.setCourseNullErr("Course have to choose");
+            }
+
+            if (ddlCountry == null) {
+                foundErr = true;
+                errors.setCountryNullErr("Country must be select, not select");
+                System.out.println("Country: false");
+            } else {
+                System.out.println("country: " + ddlCountry);
                 System.out.println("true");
             }
+
+            if (language == null) {
+                foundErr = true;
+                errors.setLanguageNullErr("Language must chooose");
+            }
+
+            if (foundErr) {
+                request.setAttribute("CREATEERRORS", errors);
+            } else {
+                url = SHOW_PAGE;
+            }
+//            if (txtFullname == null) {
+//                errFullName = "Khoong duoc de trong fullname";
+//                session.setAttribute("errFullName", errFullName);
+//                url = ERROR_PAGE;
+//                return;
+//            }
+//            if (!charExpression.matcher(txtFullname).find()) {
+//                errFullName = "Không có số";
+//                session.setAttribute("errFullName", errFullName);
+//                url = ERROR_PAGE;
+//                return;
+//            }
+//            if (txtAge == null) {
+//                errAge = "Khong duoc de trong AGE!";
+//                session.setAttribute("errAge", errAge);
+//                url = ERROR_PAGE;
+//                return;
+//            }
+//            session.setAttribute("soCourses", ddlCountry);
+//            System.out.println(ddlCountry);
+//            url = SHOW_PAGE;
+//            System.out.println("AGE: " + txtAge);
+//            if (charExpression.matcher(txtAge).find()) {
+//                errAge = "Khoong duoc de trong AGE";
+//                session.setAttribute("errAge", errAge);
+//                url = ERROR_PAGE;
+//                System.out.println("False");
+//                return;
+//            } else {
+//                System.out.println("true");
+//            }
+
+//            if (soCourses != null) {
+//                for (String soCourse : soCourses) {
+//                    System.out.println(soCourse);
+//
+//                }
+//            } else {
+//                System.out.println("false");
+//            }
         } finally {
-            response.sendRedirect(url);
+//            response.sendRedirect(url);
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
+            out.close();
 //    request
         }
     }
