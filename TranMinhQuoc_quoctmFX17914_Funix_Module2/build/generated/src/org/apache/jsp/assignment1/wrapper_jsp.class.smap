@@ -1,0 +1,18 @@
+SMAP
+wrapper_jsp.java
+JSP
+*S JSP
+*F
++ 0 wrapper.jsp
+assignment1/wrapper.jsp
++ 1 wrapper_sidebar.jsp
+assignment1/wrapper_sidebar.jsp
++ 2 wrapper_content.jsp
+assignment1/wrapper_content.jsp
+*L
+5,26:50
+5#1,167:76
+30#0,2:242
+5#2,595:244
+31#0,22:838
+*E

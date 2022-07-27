@@ -27,7 +27,7 @@ public class validationController extends HttpServlet {
 
     private final String COURSE_PAGE = "assignment3_CourseForm.jsp";
     private final String DEFAULT_PAGE = "assignment3_CourseForm.html";
-    private final String SHOW_PAGE = "show.jsp";
+    private final String SUCCESS_PAGE = "assignment2_welcome.jsp";
     private final String ERROR_PAGE = "assignment3_CourseForm.jsp";
 
     /**
@@ -107,7 +107,7 @@ public class validationController extends HttpServlet {
             if (foundErr) {
                 request.setAttribute("CREATEERRORS", errors);
             } else {
-                url = SHOW_PAGE;
+                url = SUCCESS_PAGE;
             }
 //            if (txtFullname == null) {
 //                errFullName = "Khoong duoc de trong fullname";
@@ -129,7 +129,7 @@ public class validationController extends HttpServlet {
 //            }
 //            session.setAttribute("soCourses", ddlCountry);
 //            System.out.println(ddlCountry);
-//            url = SHOW_PAGE;
+//            url = SUCCESS_PAGE;
 //            System.out.println("AGE: " + txtAge);
 //            if (charExpression.matcher(txtAge).find()) {
 //                errAge = "Khoong duoc de trong AGE";
