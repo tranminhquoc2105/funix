@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package quoctm.assignment2.controllers;
+package quoctm.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,40 +21,47 @@ import javax.servlet.http.HttpSession;
  *
  * @author SE130297
  */
-@WebServlet(name = "loginController", urlPatterns = {"/loginController"})
-public class loginController extends HttpServlet {
+@WebServlet(name = "RegistrationServlet", urlPatterns = {"/RegistrationServlet"})
+public class RegistrationServlet extends HttpServlet {
 
-//    private final String ERROR_PAGE = "assignment2_login.jsp";
-    private final String HOME_PAGE = "assignment2_welcome.jsp";
-//    private final String DEFAULT_PAGE = "assignment2_login.html";
-    private final String DEFAULT_PAGE = "assignment2_login.jsp";
-    private final String VALIDATION_PAGE = "assignment3_validation.jsp";
+    private final String SUCCESS_PAGE = "login.jsp";
+    private final String FAIL_PAGE = "registration.jsp";
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String url = DEFAULT_PAGE;
-        String messErr = "";
+        String url = FAIL_PAGE;
+
+        String username = request.getParameter("txtUsername");
+        String password = request.getParameter("txtPassword");
+        HttpSession session = request.getSession();
+        Map<String, String> mapLogin = new HashMap<String, String>();
         try {
-            String username = request.getParameter("txtUsername");
-            String password = request.getParameter("txtPassword");
-            HttpSession session = request.getSession();
-            if (username.equals("system") && password.equals("java")) {
-                session.setAttribute("username", username);
-                url = HOME_PAGE;
-            } else if (username.equals("admin") && password.equals("passw0rd")) {
-                session.setAttribute("username", username);
-                url = VALIDATION_PAGE;
+
+//            --------------------------------------------------------------------
+            mapLogin.put("admin", "123");
+            mapLogin.put("user", "1234");
+            mapLogin.put("guest", "1235");
+
+            boolean checkRegister = mapLogin.containsKey(username);
+            if (checkRegister == true) {
+                url = FAIL_PAGE;
             } else {
-                messErr = "TÀI KHOẢN / MẬT KHẨU KHÔNG ĐÚNG, VUI LÒNG ĐĂNG NHẬP LẠI";
-                session.setAttribute("messErr", messErr);
-                url = DEFAULT_PAGE;
+                url = SUCCESS_PAGE;
             }
         } finally {
-//            RequestDispatcher rd = request.getRequestDispatcher("assignment2_welcome");
-//            rd.forward(request, response);
-            response.sendRedirect(url);
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
             out.close();
         }
     }
