@@ -109,46 +109,7 @@ public class validationController extends HttpServlet {
             } else {
                 url = SUCCESS_PAGE;
             }
-//            if (txtFullname == null) {
-//                errFullName = "Khoong duoc de trong fullname";
-//                session.setAttribute("errFullName", errFullName);
-//                url = ERROR_PAGE;
-//                return;
-//            }
-//            if (!charExpression.matcher(txtFullname).find()) {
-//                errFullName = "Không có số";
-//                session.setAttribute("errFullName", errFullName);
-//                url = ERROR_PAGE;
-//                return;
-//            }
-//            if (txtAge == null) {
-//                errAge = "Khong duoc de trong AGE!";
-//                session.setAttribute("errAge", errAge);
-//                url = ERROR_PAGE;
-//                return;
-//            }
-//            session.setAttribute("soCourses", ddlCountry);
-//            System.out.println(ddlCountry);
-//            url = SUCCESS_PAGE;
-//            System.out.println("AGE: " + txtAge);
-//            if (charExpression.matcher(txtAge).find()) {
-//                errAge = "Khoong duoc de trong AGE";
-//                session.setAttribute("errAge", errAge);
-//                url = ERROR_PAGE;
-//                System.out.println("False");
-//                return;
-//            } else {
-//                System.out.println("true");
-//            }
-
-//            if (soCourses != null) {
-//                for (String soCourse : soCourses) {
-//                    System.out.println(soCourse);
-//
-//                }
-//            } else {
-//                System.out.println("false");
-//            }
+//          
         } finally {
 //            response.sendRedirect(url);
             RequestDispatcher rd = request.getRequestDispatcher(url);

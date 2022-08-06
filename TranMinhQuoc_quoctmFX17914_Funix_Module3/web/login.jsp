@@ -1,7 +1,7 @@
 <%-- 
-    Document   : login.jsp
-    Created on : Aug 1, 2022, 5:00:03 PM
-    Author     : SE130297
+    Document   : index
+    Created on : Jul 18, 2020, 6:45:32 PM
+    Author     : USER
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,18 +9,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Login Page</title>
     </head>
     <body>
-        <h1>Trang đăng nhập</h1>
-        <form action="LoginServlet" method="POST">
-            Username:  <input type="text" name="txtUsername" value="" /> </br>
-            Password: <input type="password" name="txtPassword" value="" /> </br>
-            <font color="red">${messErr}</font> </br>
-            <input type="submit" value="OK" />
-            </br>           
-        </form>
-            
-            <a href="registration.jsp">Trang đăng kí tài khoản</a>
+        <form action="loginProcess" method="post">
+            <input type="hidden" name="action" value="1">
+            Username: <input type="text" name="user"><br/>
+            Password: <input type="password" name="password">
+            <br/>
+            <input type="submit" value="Log in now">
+        </form>   
+        <form action="signup.jsp" method="post">
+            <input type="submit" value="Create a new account">
+        </form>   
+        <br/>
+        <b>Default User: system, Pass: java</b>
     </body>
 </html>
