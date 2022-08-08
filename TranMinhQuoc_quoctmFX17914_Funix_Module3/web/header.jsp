@@ -1,9 +1,3 @@
-<%-- 
-    Document   : header
-    Created on : Jul 18, 2020, 9:08:43 PM
-    Author     : USER
---%>
-
 <%@page import="login_Process.count"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,9 +36,9 @@
         <header class="masthead d-flex">
             <div class="container text-center my-auto">
                 <br/> <br/> <br/><br/> <br/> <br/>
-                <h1 class="mb-1"><%= content %></h1>
-                <a class="btn btn-primary btn-xl js-scroll-trigger" href="login.jsp">Log in now</a>
-                <a class="btn btn-primary btn-xl js-scroll-trigger" href="signup.jsp">Create a new account</a>
+                <h1 class="mb-1 text-info" ><%= content %></h1>
+                <a class="btn btn-light btn-xl js-scroll-trigger" href="login.jsp">Log in now</a>
+                <a class="btn btn-light btn-xl js-scroll-trigger" href="signup.jsp">Create a new account</a>
             </div>
                  <jsp:setProperty name="countnum" property="countnumber" value="1"></jsp:setProperty>
             <div class="overlay"></div>
