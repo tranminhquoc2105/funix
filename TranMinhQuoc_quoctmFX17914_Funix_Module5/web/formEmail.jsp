@@ -1,9 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
-
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
@@ -25,7 +22,6 @@
     </head>
 
     <body id="page-top">
-
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container">
@@ -78,7 +74,7 @@
         <!-- Footer -->
         <footer class="bg-black small text-center text-white-50">
             <div class="container">
-               
+
             </div>
         </footer>
 
