@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/TranMinhQuoc_quoctmFX17914_Funix_Module4">
+    <Resource name ="SE130297" type = "javax.sql.DataSource" auth ="Container"
+              driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+              url="jdbc:sqlserver://localhost:1433;databaseName=Blog" 
+              username="sa" password="123456" />
+</Context>

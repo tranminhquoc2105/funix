@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 public class Controller extends HttpServlet {
 
     /**
@@ -43,27 +42,30 @@ public class Controller extends HttpServlet {
         String sql = "select * from Login";
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        while(rs.next()){
+        while (rs.next()) {
             session.setAttribute("email", rs.getString(1));
             session.setAttribute("password", rs.getString(2));
-            String s= rs.getString(1);
-            String s1= rs.getString(2);
+            String s = rs.getString(1);
+            String s1 = rs.getString(2);
         }
-        if(!session.getAttribute("email").toString().trim().equals(Email) || !session.getAttribute("password").toString().trim().equals(Password)){
+        if (!session.getAttribute("email").toString().trim().equals(Email) || !session.getAttribute("password").toString().trim().equals(Password)) {
             request.setAttribute("message", "Wrong Email/Password");
             RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
             rd.forward(request, response);
-        }else{
+        } else {
             SendMail.username = (String) session.getAttribute("email");
             SendMail.password = (String) session.getAttribute("password");
             request.setAttribute("check", "check");
             RequestDispatcher rd = request.getRequestDispatcher("sendmail.jsp");
             rd.forward(request, response);
         }
-        
+
         try {
-            rs.close();ps.close();conn.close();
+            rs.close();
+            ps.close();
+            conn.close();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

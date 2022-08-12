@@ -50,5 +50,4 @@ public class Email {
     public void setUsernameTo(String usernameTo) {
         this.usernameTo = usernameTo;
     }      
-    
 }
