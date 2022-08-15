@@ -1,23 +1,30 @@
 <%-- 
-    Document   : blog.jsp
-    Created on : Aug 12, 2022, 11:10:39 AM
+    Document   : createBlog
+    Created on : Aug 13, 2022, 11:24:03 AM
     Author     : SE130297
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Blog Page</title>
+        <title>CREATE Page</title>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link href="css/clean-blog.min.css" rel="stylesheet">
+        <link href="css/clean-blog.min.css" rel="stylesheet">
+
     </head>
     <body>
+        <h1>CREATE BLOG</h1>
+        <%
+            Date now = new Date();
+
+        %>
+
         <header class="masthead" style="background-image: url('img/home-bg.jpg')">
             <div class="overlay"></div>
             <div class="container">
@@ -31,6 +38,7 @@
                             <form action="DispatchController">
                                 <input type="submit" value="Logout" name="btAction" class="btn btn-primary js-scroll-trigger"/>
                                 <input type="submit" value="Create_Blog" name="btAction" class="btn btn-primary js-scroll-trigger"/>
+                                <input type="submit" value="View" name="btAction" class="btn btn-primary js-scroll-trigger"/> </br>
                             </form><br/>
                         </div>
                     </div>
@@ -38,55 +46,43 @@
             </div>
         </header>
 
-        <c:set var="listBlog" value="${requestScope.LISTBLOG}"/>
-        <c:if test="${not empty listBlog}">
-            <div class="container-fluid">
-                <c:forEach var="dto" items="${listBlog}" varStatus="counter">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <!-- Featured blog post-->
-                                <div class="card mb-4">
-                                    <div class="card-body">
-                                                 <!--<input type="" name="txtID" value="${dto.ID}" />-->
+        <form action="DispatchController" method="POST">
+            <div class=" container border border-danger">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Blog Id</label>
+                    <input type="text" name="txtID"  class="form-control" > 
+                </div>
 
-                                        <h2 class="post-title" id="title" > <ins>${dto.title}</ins></h2>
-                                        <h4 class="card-title" id="summary"> ${dto.summary}</h4>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <p class="card-text"> Author: ${dto.author}</p>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <p class=" text-muted"> Date: ${dto.time}</p>
-                                            </div>
-                                        </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Blog title:</label>
+                    <input type="text" name="txtTitle" class="form-control" >
+                </div>
 
-                                        <c:url var="urlRewritingUpdate" value = "DispatchController">
-                                            <c:param name ="btAction" value ="Update Blog" />
-                                            <c:param name ="txtID" value ="${dto.ID}" />
-                                        </c:url> 
-                                            
-                                        <c:url var="urlRewritingDetail" value = "DispatchController">
-                                            <c:param name ="btAction" value ="Detail Blog" />
-                                            <c:param name ="txtID" value ="${dto.ID}" />
-                                        </c:url> 
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <a href="${urlRewritingDetail}" class="btn btn-primary" >Detail</a>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <a href="${urlRewritingUpdate}" class="btn btn-primary">Update</a>
-                                                </div>
-                                            </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Blog Summarry:</label>
+                    <input type="text" name="txtSummary" class="form-control" >
+                </div>
 
-                </c:forEach>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Blog Content:</label>
+                    <textarea  type="text" name="txtContent" class="form-control" ></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Blog Author:</label>
+                    <input type="text" name="txtAuthor" class="form-control" >
+                </div>
+
+                <div class="form-group">
+                    <!--<label for="exampleInputEmail1">Author Times</label>-->
+                    <input type="hidden" name="txtTime"  value="<%= now%>" class="form-control" >
+                </div>
+                <div class="form-group">
+                    <input type="submit" name="btAction" class="btn btn-info btn-md" value="Create">
+                </div>
+
             </div>
-        </c:if>
+        </form>
 
         <footer class="text-center text-lg-start bg-light text-muted">
             <!-- Section: Social media -->
@@ -203,6 +199,5 @@
             <!-- Copyright -->
         </footer>
         <!-- Footer -->
-
     </body>
 </html>

@@ -6,7 +6,8 @@
 package quoctm.Blog;
 
 import java.io.Serializable;
-import java.util.Date;
+//import java.sql.Date;
+//import java.util.Date;
 
 
 /**
@@ -30,6 +31,14 @@ public class BlogDTO implements Serializable{
         this.summary = summary;
         this.content = content;
         this.time = time;
+        this.author = author;
+    }
+    
+     public BlogDTO(String ID, String title, String summary, String content, String author) {
+        this.ID = ID;
+        this.title = title;
+        this.summary = summary;
+        this.content = content;
         this.author = author;
     }
 

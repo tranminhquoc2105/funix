@@ -20,9 +20,15 @@ import javax.servlet.http.HttpServletResponse;
 public class DispatchController extends HttpServlet {
 
     private final String LOGIN_PAGE = "login.html";
+    private final String CREATE_BLOG_PAGE = "createBlog.jsp";
+
     private final String LOGIN_SERVLET = "LoginServlet";
     private final String LOGOUT_SERVLET = "LogoutServlet";
     private final String VIEW_BLOG_SERVLET = "getListBlogServlet";
+    private final String CREATE_BLOG_SERVLET = "CreateBlogServlet";
+    private final String VIEW_DETAIL_BLOG_SERVLET = "ViewDetailBlogServlet";
+    private final String UPDATE_BLOG_SERVLET = "UpdateBlogSerlvet";
+    private final String VIEW_DETAIL_BLOG_SERVLET_V2 = "ViewDetailBlogV2Servlet";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,9 +50,21 @@ public class DispatchController extends HttpServlet {
                 url = LOGIN_SERVLET;
             } else if (button.equals("Logout")) {
                 url = LOGOUT_SERVLET;
-            }else if(button.equals("View")){
+            } else if (button.equals("View")) {
                 url = VIEW_BLOG_SERVLET;
+            } else if (button.equals("Create_Blog")) {
+                url = CREATE_BLOG_PAGE;
+            } else if (button.equals("Create")) {
+                url = CREATE_BLOG_SERVLET;
+            } else if (button.equals("Update Blog")) {
+                url = VIEW_DETAIL_BLOG_SERVLET; 
+            } else if (button.equals("Update")) {
+                url = UPDATE_BLOG_SERVLET;
             }
+            else if (button.equals("Detail Blog")) {
+                url = VIEW_DETAIL_BLOG_SERVLET_V2;
+            }
+
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);

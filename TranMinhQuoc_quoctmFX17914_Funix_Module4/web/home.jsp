@@ -15,78 +15,26 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link href="css/clean-blog.min.css" rel="stylesheet">
+        <link href="css/grayscale.min.css" rel="stylesheet">
     </head>
     <body>
-        <header class="masthead" style="background-image: url('img/home-bg.jpg')">
-            <div class="overlay"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-md-10 mx-auto">
-                        <div class="site-heading">
-                            <h5> 
-                                <font color ="red">Welcome,</font>
-                                <strong>${sessionScope.FULLNAME}</strong>
-                            </h5>
-                            <form action="DispatchController">
-                                <input type="submit" value="Logout" name="btAction" class="btn btn-primary js-scroll-trigger"/>
-                                <input type="submit" value="Create_Blog" name="btAction" class="btn btn-primary js-scroll-trigger"/>
-                            </form><br/>
-                        </div>
-                    </div>
+
+        <header class="masthead">
+            <div class="container d-flex h-100 align-items-center">
+                <div class="mx-auto text-center">
+                    <h1 class="mx-auto my-0 text-uppercase"> <font color ="red">Welcome,</font>
+                        <strong>${sessionScope.FULLNAME}</strong></h1>                      
+                    <form action="DispatchController">
+                        <input type="submit" value="Logout" name="btAction" class="btn btn-primary js-scroll-trigger"/>
+                        <input type="submit" value="View" name="btAction" class="btn btn-primary js-scroll-trigger"/>
+                        <input type="submit" value="Create_Blog" name="btAction" class="btn btn-primary js-scroll-trigger"/>
+                    </form>
+                   
                 </div>
             </div>
         </header>
 
-        <c:set var="listBlog" value="${requestScope.LISTBLOG}"/>
-        <c:if test="${not empty listBlog}">
-            <div class="container-fluid">
-                <c:forEach var="dto" items="${listBlog}" varStatus="counter">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <!-- Featured blog post-->
-                                <div class="card mb-4">
-                                    <div class="card-body">
-                                                 <!--<input type="" name="txtID" value="${dto.ID}" />-->
 
-                                        <h2 class="post-title" id="title" > <ins>${dto.title}</ins></h2>
-                                        <h4 class="card-title" id="summary"> ${dto.summary}</h4>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <p class="card-text"> Author: ${dto.author}</p>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <p class=" text-muted"> Date: ${dto.time}</p>
-                                            </div>
-                                        </div>
-
-                                        <c:url var="urlRewritingUpdate" value = "DispatchController">
-                                            <c:param name ="btAction" value ="Update Blog" />
-                                            <c:param name ="txtID" value ="${dto.ID}" />
-                                        </c:url> 
-                                            
-                                        <c:url var="urlRewritingDetail" value = "DispatchController">
-                                            <c:param name ="btAction" value ="Detail Blog" />
-                                            <c:param name ="txtID" value ="${dto.ID}" />
-                                        </c:url> 
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <a href="${urlRewritingDetail}" class="btn btn-primary" >Detail</a>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <a href="${urlRewritingUpdate}" class="btn btn-primary">Update</a>
-                                                </div>
-                                            </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </c:forEach>
-            </div>
-        </c:if>
 
         <footer class="text-center text-lg-start bg-light text-muted">
             <!-- Section: Social media -->
@@ -203,6 +151,5 @@
             <!-- Copyright -->
         </footer>
         <!-- Footer -->
-
     </body>
 </html>

@@ -7,6 +7,10 @@ package quoctm.Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,17 +18,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import quoctm.login.LoginFail;
+import quoctm.Blog.BlogDAO;
+import quoctm.Blog.BlogDTO;
 
 /**
  *
  * @author SE130297
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "ViewDetailBlogServlet", urlPatterns = {"/ViewDetailBlogServlet"})
+public class ViewDetailBlogServlet extends HttpServlet {
 
-    private final String SUCCESS_PAGE = "home.jsp";
-    private final String DEFAULT_PAGE = "login.jsp";
+    private final String DETAILT_PAGE = "blog.jsp";
+    private final String RESULT_PAGE = "updateBlog.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,27 +44,18 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
-        LoginFail fail = new LoginFail();
-        boolean foundFail = false;
-
-        String username = request.getParameter("txtUsername");
-        String password = request.getParameter("txtPassword");
-        HttpSession session = request.getSession();
-
-        String url = DEFAULT_PAGE;
+        String url = RESULT_PAGE;
         try {
-            if (!username.equals("system") || !password.equals("java")) {
-                foundFail = true;
-                fail.setLoginErorr("Username or password is fails, try again");
-            } 
-            
-            if (foundFail){
-                request.setAttribute("LOGINFAIL", fail);
-            }else{
-                url = SUCCESS_PAGE;
-                session.setAttribute("FULLNAME", username);
-            }
+            String id = request.getParameter("txtID");
+            //---------------------------------------------------------------------
+            BlogDTO dto = BlogDAO.findBlog(id);
+
+            request.setAttribute("UpdateBlog", dto);
+            url = RESULT_PAGE;
+        } catch (SQLException ex) {
+            Logger.getLogger(ViewDetailBlogServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NamingException ex) {
+            Logger.getLogger(ViewDetailBlogServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);

@@ -46,7 +46,6 @@ public class getListBlogServlet extends HttpServlet {
             if(listBlog != null){
                 url = BLOG_PAGE;
                 request.setAttribute("LISTBLOG", listBlog);
-                System.out.println("book: " + request.getAttribute("LISTBLOG"));
             }
         } catch (NamingException e) {
             e.printStackTrace();
