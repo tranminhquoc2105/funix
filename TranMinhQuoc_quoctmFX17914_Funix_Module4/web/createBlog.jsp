@@ -4,6 +4,7 @@
     Author     : SE130297
 --%>
 
+<%@page import="java.util.Random"%>
 <%@page import="java.util.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -22,7 +23,8 @@
         <h1>CREATE BLOG</h1>
         <%
             Date now = new Date();
-
+            Random random = new Random();   
+            int id = random.nextInt(50);
         %>
 
         <header class="masthead" style="background-image: url('img/home-bg.jpg')">
@@ -48,10 +50,10 @@
 
         <form action="DispatchController" method="POST">
             <div class=" container border border-danger">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Blog Id</label>
-                    <input type="text" name="txtID"  class="form-control" > 
-                </div>
+                <!--<div class="form-group">-->
+                    <!--<label for="exampleInputEmail1">Blog Id</label>-->
+                    <input type="hidden" name="txtID"  class="form-control" value="<%= id %>"> 
+                <!--</div>-->
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">Blog title:</label>
