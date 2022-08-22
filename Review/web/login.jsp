@@ -12,11 +12,12 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="LoginServlet" method="POST">
+        <form action="Login" method="POST">
             Username: <input type="text" name="txtUsername" value="" /></br>
             Password: <input type="text" name="txtPassword" value="" /></br>
             ${ERROR}</br>
             <input type="submit" name="btAction" value="Login" />
+
         </form>
     </body>
 </html>
